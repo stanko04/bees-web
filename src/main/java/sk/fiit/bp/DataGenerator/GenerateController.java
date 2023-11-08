@@ -18,7 +18,7 @@ public class GenerateController {
 
     // VONKAJSIA TEPLOTA, VONKAJSIA VLHKOST
     // POSIELANIE KAZDU HODINU
-    @Scheduled(fixedRate = 60000) // 60,000 milliseconds = 1 minute
+    @Scheduled(fixedRate = 3600000) // 3,600,000 milliseconds = 1 hour
 //    @GetMapping("/send-data-weather")
     public void getAndSendWeatherData() {
         final String uri = "http://api.weatherapi.com/v1/current.json?key=3d4c9ec96dd4442cbcf121421230711&q=Trnava&aqi=no";
@@ -43,7 +43,7 @@ public class GenerateController {
 
     // VNUTORNA TEPLOTA, VNUTORNA VLHKOST, FREKVENCIA
     // POSIELANIE KAZDYCH 30 MIN
-    @Scheduled(fixedRate = 60000) // 60,000 milliseconds = 1 minute
+    @Scheduled(fixedRate = 1800000) // 1,800,000 milliseconds = 30 minutes
 //    @GetMapping("/send-data-bee-hive")
     public void generateAndSendBeeHiveTelemetry() {
         Random random = new Random();
@@ -70,7 +70,7 @@ public class GenerateController {
 
     // HMOTNOST A NAKLONENIE
     // POSIELANIE RAZ ZA DEN
-    @Scheduled(fixedRate = 60000) // 60,000 milliseconds = 1 minute
+    @Scheduled(fixedRate = 86400000) // 86,400,000 milliseconds = 24 hours
 //    @GetMapping("/send-data-weight-rollover")
     public void generateAndSendWeightRollover() {
         Random random = new Random();
