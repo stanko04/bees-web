@@ -1,4 +1,4 @@
-package sk.fiit.bp.DataGenerator;
+package sk.fiit.bp.DataGenerator.controllers;
 
 import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import sk.fiit.bp.DataGenerator.DataGeneratorApplication;
 
 import java.util.Random;
 import java.util.logging.Logger;

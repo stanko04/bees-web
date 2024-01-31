@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Toto je moja aplikacia</title>
+</head>
+<body>
+    <h1>Toto je moja aplikacia</h1>
+    <p>Welcome to <span th:text="${appName}">Our App</span></p>
+    <p>Number: <span id="calculate"></span></p>
+    <p>Message: <span th:text="${string}"></span></p>
+</body>
+
+<script>
+    window.onload = function() {
+        let calculate = [[${number + 5}]];
+        let message = "[[${string}]]";
+        console.log(calculate);
+        console.log(message);
+        document.getElementById("calculate").innerHTML = calculate.toString();
+    };
+</script>
+
+</html>
