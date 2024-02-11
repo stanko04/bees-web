@@ -2,44 +2,51 @@ package sk.fiit.bp.DataGenerator.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import sk.fiit.bp.DataGenerator.model.beeHive.Device;
-import sk.fiit.bp.DataGenerator.model.beeHive.Token;
-import sk.fiit.bp.DataGenerator.model.beeHive.Tenant;
-import sk.fiit.bp.DataGenerator.model.beeHive.User;
-import sk.fiit.bp.DataGenerator.model.beeHive.wrappers.DevicesWrapper;
-import sk.fiit.bp.DataGenerator.model.beeHive.wrappers.TenantsWrapper;
-import sk.fiit.bp.DataGenerator.model.beeHive.wrappers.UsersWrapper;
+import sk.fiit.bp.DataGenerator.model.mapDevice.*;
+import sk.fiit.bp.DataGenerator.model.mapDevice.wrappers.DevicesWrapper;
+import sk.fiit.bp.DataGenerator.model.mapDevice.wrappers.TenantsWrapper;
+import sk.fiit.bp.DataGenerator.model.mapDevice.wrappers.UsersWrapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 @RestController
 @Component
-public class BeeHiveController {
+public class MapDeviceController {
     final RestTemplate restTemplate = new RestTemplate();
-    final Logger logger = LoggerFactory.getLogger(BeeHiveController.class);
+    final Logger logger = LoggerFactory.getLogger(MapDeviceController.class);
     final String urlAdress = "http://165.22.17.201/";
 
-    @GetMapping("get-tenants")
-    public void getAllBeeHivesAndDashboards() {
+//    @GetMapping("get-tenants")
+    public void getAllDeviceAndDashboards() {
         try {
             String adminToken = adminLogin();
+            List<DeviceInfo> allDevices = new ArrayList<>();
 
             if(adminToken != null) {
                 List<Tenant> tenants = getAllTenants(adminToken);
                 if(tenants != null) {
                     for(Tenant tenant: tenants) {
                         User user = getTenantOwner(tenant, adminToken);
-                        System.out.println(user);
+                        System.out.println(user); // TESTING
                         String userToken = getUserToken(adminToken, user);
-                        getUserDevices(userToken);
+                        System.out.println(userToken); // TESTING
+                        List<DeviceInfo> deviceInfos = getUserPublicDevices(userToken, user);
+                        if(deviceInfos != null && deviceInfos.size() > 0) {
+                            allDevices.addAll(deviceInfos);
+                        }
                     }
                 }
+            }
+            for(DeviceInfo deviceInfo: allDevices) {
+                System.out.println(deviceInfo);
             }
         } catch (Exception e) {
             logger.warn("Pri ziskavani monitorovanych ulov vznikla chyba: ", e);
@@ -137,15 +144,18 @@ public class BeeHiveController {
             UsersWrapper tenantUsers = responseEntity.getBody();
 
             assert tenantUsers != null;
-            for(User user: tenantUsers.getData()) {
-                if(user.getAdditionalInfo().getDescription().equals("owner")) {
-                    return user;
+            if(tenantUsers.getData() != null && tenantUsers.getData().size() > 0) {
+                for(User user: tenantUsers.getData()) {
+                    if(user.getAdditionalInfo().getDescription().equals("owner")) {
+                        return user;
+                    }
                 }
+                return tenantUsers.getData().get(0);
             }
-            return tenantUsers.getData().get(0);
         } else {
             return null;
         }
+        return null;
     }
 
     /**
@@ -181,7 +191,8 @@ public class BeeHiveController {
     /**
      Metóda pre získanie všetkých public devices, pre daného usera.
      */
-    public void getUserDevices(String userToken) {
+    public List<DeviceInfo> getUserPublicDevices(String userToken, User user) {
+        List<DeviceInfo> devices = new ArrayList<>();
         String url = urlAdress + "api/tenant/devices?pageSize=100&page=0";
 
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -201,17 +212,85 @@ public class BeeHiveController {
         if (statusCode == HttpStatus.OK) {
             DevicesWrapper userDevices = responseEntity.getBody();
             assert userDevices != null;
-            if(userDevices.getData().size() > 0) {
-//                System.out.println(userDevices.getData());
-                // TODO - spravit tu for loop, ktory prejde vsetky devices, ktore maju lablel "public"
-                for(Device device: userDevices.getData()) {
-                    System.out.println(device);
+            if (userDevices.getData() != null && userDevices.getData().size() > 0) {
+                for (Device device : userDevices.getData()) {
+                    if (device.getLabel() != null && !device.getLabel().isEmpty() && device.getLabel().equals("public")) {
+                        DeviceInfo deviceInfo = getDeviceAttributes(userToken, device.getId().getId());
+                        if(deviceInfo != null) {
+                            deviceInfo.setName(device.getName());
+                            deviceInfo.setOwner(user.getFirstName() + " " + user.getLastName());
+                            devices.add(deviceInfo);
+                        }
+                    }
                 }
-                // TODO - nasledne sa vo for loope napajat na api, kde ziskame attributes pre kazde device
-                // TODO - tieto vsetky devices aj s nazvom, ownerom a atributmi vratime na returne
             }
+            return devices;
         } else {
-//            return null;
+            return null;
         }
+    }
+
+    public DeviceInfo getDeviceAttributes(String userToken, String deviceId) {
+        String url = urlAdress + "api/plugins/telemetry/DEVICE/" + deviceId + "/values/attributes";
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.set("X-Authorization", "Bearer " + userToken);
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
+
+        ParameterizedTypeReference<List<Attribute>> responseType = new ParameterizedTypeReference<>() {};
+
+        ResponseEntity<List<Attribute>> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                requestEntity,
+                responseType
+        );
+
+        HttpStatus statusCode = responseEntity.getStatusCode();
+        if (statusCode == HttpStatus.OK) {
+            List<Attribute> attributes = responseEntity.getBody();
+            boolean hasDashboard = false;
+            boolean hasLatitude = false;
+            boolean hasLongitude = false;
+            Attribute dashboardAttribute = new Attribute();
+            Attribute latitudeAttribute = new Attribute();
+            Attribute longitudeAttribute = new Attribute();
+
+            if(attributes != null && attributes.size() > 0) {
+                for (Attribute attribute : attributes) {
+                    if ("dashboard".equals(attribute.getKey()) && attribute.getValue() != null) {
+                        hasDashboard = true;
+                        dashboardAttribute.setValue(attribute.getValue());
+                    } else if ("latitude".equals(attribute.getKey()) && attribute.getValue() != null) {
+                        String latitude = attribute.getValue().toString();
+                        if (latitude.matches("^-?\\d+(\\.\\d+)?$")) {
+                            hasLatitude = true;
+                            latitudeAttribute.setValue(attribute.getValue());
+                        }
+                    } else if ("longitude".equals(attribute.getKey()) && attribute.getValue() != null) {
+                        String longitude = attribute.getValue().toString();
+                        if (longitude.matches("^-?\\d+(\\.\\d+)?$")) {
+                            hasLongitude = true;
+                            longitudeAttribute.setValue(attribute.getValue());
+                        }
+                    }
+                }
+            }
+
+            if(hasLatitude && hasLongitude) {
+                if(hasDashboard) {
+                    return new DeviceInfo(
+                            (String) dashboardAttribute.getValue(), (Double) latitudeAttribute.getValue(),
+                            (Double) longitudeAttribute.getValue());
+                } else {
+                    return new DeviceInfo((Double) latitudeAttribute.getValue(), (Double) longitudeAttribute.getValue());
+                }
+
+            }
+
+        }
+        return null;
     }
 }

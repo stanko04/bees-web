@@ -1,4 +1,4 @@
-package sk.fiit.bp.DataGenerator.model;
+package sk.fiit.bp.DataGenerator.model.mapDevice;
 
 import lombok.Data;
 

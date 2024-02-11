@@ -1,7 +1,6 @@
-package sk.fiit.bp.DataGenerator.model.beeHive;
+package sk.fiit.bp.DataGenerator.model.mapDevice;
 
 import lombok.Data;
-import sk.fiit.bp.DataGenerator.model.UserAdditionalInfo;
 
 @Data
 public class User {

@@ -12,7 +12,7 @@ import java.util.List;
 @Controller
 public class TestController {
 
-//    @GetMapping("/home")
+    @GetMapping("/home-page")
     public String home(Model model) {
         String appName = "Toto je moja aplikacia";
         int number = 1234;

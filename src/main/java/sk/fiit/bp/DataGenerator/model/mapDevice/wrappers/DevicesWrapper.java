@@ -1,7 +1,7 @@
-package sk.fiit.bp.DataGenerator.model.beeHive.wrappers;
+package sk.fiit.bp.DataGenerator.model.mapDevice.wrappers;
 
 import lombok.Data;
-import sk.fiit.bp.DataGenerator.model.beeHive.Device;
+import sk.fiit.bp.DataGenerator.model.mapDevice.Device;
 
 import java.util.List;
 
