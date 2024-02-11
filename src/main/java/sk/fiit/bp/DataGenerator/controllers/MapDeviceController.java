@@ -64,6 +64,7 @@ public class MapDeviceController {
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
         // string pre username a password
+        String requestBody = "{\"username\": \"****\", \"password\": \"****\"}";
 
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, httpHeaders);
 
