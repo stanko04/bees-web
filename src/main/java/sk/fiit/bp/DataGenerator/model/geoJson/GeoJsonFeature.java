@@ -10,19 +10,28 @@ public class GeoJsonFeature {
     private GeoJsonProperties properties;
     private GeoJsonGeometry geometry;
 
-    public static GeoJsonFeature createGeoJsonFeature(String description, double lon, double lat, String icon) {
+    public static GeoJsonFeature createGeoJsonFeature(String name, double longitude, double latitude,
+                                                      String owner, String dashboard) {
         GeoJsonFeature feature = new GeoJsonFeature();
         feature.setType("Feature");
 
         GeoJsonProperties properties = new GeoJsonProperties();
-        properties.setDescription("<strong>" + description + "</strong>" + "<p><a href=\"\" target=\"_blank\" title=\"Zobraziť dashboard\">Zobraziť dashboard</a></p>");
-        properties.setIcon(icon);
+        if(dashboard.equals("unknown")) {
+            properties.setDescription("<strong>" + name + "</strong>" +
+                    "<p><strong>Včelár: </strong>" + owner + "<p>");
+        } else {
+            properties.setDescription("<strong>" + name + "</strong>" +
+                    "<p><strong>Včelár: </strong>" + owner + "<p>" +
+                    "<p><a href=\"" + dashboard + "\" target=\"_blank\" title=\"Zobraziť dashboard\">Zobraziť dashboard</a></p>");
+        }
+
+        properties.setIcon("embassy");
 
         feature.setProperties(properties);
 
         GeoJsonGeometry geometry = new GeoJsonGeometry();
         geometry.setType("Point");
-        geometry.setCoordinates(List.of(lon, lat));
+        geometry.setCoordinates(List.of(longitude, latitude));
 
         feature.setGeometry(geometry);
 

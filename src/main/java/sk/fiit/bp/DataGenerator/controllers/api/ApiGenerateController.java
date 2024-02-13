@@ -1,9 +1,8 @@
-package sk.fiit.bp.DataGenerator.controllers;
+package sk.fiit.bp.DataGenerator.controllers.api;
 
 import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import sk.fiit.bp.DataGenerator.DataGeneratorApplication;
@@ -14,10 +13,10 @@ import java.util.logging.Logger;
 
 @RestController
 @Component
-public class GenerateController {
+public class ApiGenerateController {
 
-    float WEIGHT = 15.0f;
-    int BATTERY = 100;
+    float WEIGHT = 20.0f;
+    int BATTERY = 80;
 
     private static final Logger LOGGER = Logger.getLogger(DataGeneratorApplication.class.getName());
 
@@ -103,17 +102,17 @@ public class GenerateController {
 
 //        float weight = 30.0f + random.nextFloat() * (40.0f - 30.0f);
 
-        if(WEIGHT == 40) {
+        if(WEIGHT >= 40) {
             WEIGHT = 15;
         }
         float weight_rounded = (float) (Math.round(WEIGHT * 10.0) / 10.0);
-        WEIGHT = WEIGHT + 1;
+        WEIGHT = WEIGHT + 3;
 
-        if(BATTERY == 5) {
+        if(BATTERY <= 20) {
             BATTERY = 100;
         }
         int battery = BATTERY;
-        BATTERY = BATTERY - 1;
+        BATTERY = BATTERY - 5;
 
         boolean rollover = random.nextDouble() < 0.9;
 

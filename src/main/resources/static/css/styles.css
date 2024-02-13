@@ -18,69 +18,197 @@ body {
     font-family: 'Bebas Neue', sans-serif;
 }
 
-/*#map { position: absolute; top: 0; bottom: 0; width: 50%; height: 50%; }*/
-@media (max-width: 650px) {
+@media (max-width: 360px) {
     #bee-image {
+        position: relative;
         width: 60px;
         height: auto;
         z-index: 1;
-        top: 100px;
-        left: 50px;
+        top: 10px;
+        left: 15px;
         transform: rotate(20deg);
+        transition: 0.5s;
+        margin-bottom: -50px
     }
-}
 
-@media (min-width: 650px) {
-    #bee-image {
-        width: 80px;
-        height: auto;
-        z-index: 1;
-        top: 110px;
-        left: 70px;
-        transform: rotate(20deg);
-    }
-}
-
-@media (max-width: 650px) {
-    #bee-image2 {
+    #bee-image3 {
+        float: right;
+        position: relative;
         width: 60px;
         height: auto;
         z-index: 1;
-        top: 100px;
-        right: 50px;
+        top: 20px;
+        right: 15px;
         transform: rotate(180deg);
+        transition: 0.5s;
+        margin-bottom: -50px;
     }
 }
 
-@media (min-width: 650px) and (max-width: 800px) {
-    #bee-image2 {
-        width: 80px;
+@media (min-width: 360px) and (max-width: 576px) {
+    #bee-image {
+        position: relative;
+        width: 60px;
         height: auto;
         z-index: 1;
-        top: 110px;
-        right: 70px;
+        top: 20px;
+        left: 30px;
+        transform: rotate(20deg);
+        transition: 0.5s;
+        margin-bottom: -50px
+    }
+
+    #bee-image3 {
+        float: right;
+        position: relative;
+        width: 60px;
+        height: auto;
+        z-index: 1;
+        top: 30px;
+        right: 30px;
         transform: rotate(180deg);
+        transition: 0.5s;
+        margin-bottom: -50px;
     }
 }
 
-@media (min-width: 800px) and (max-width: 1200px) {
-    #bee-image2 {
+@media (min-width: 576px) and (max-width: 768px) {
+    #bee-image {
+        position: relative;
         width: 80px;
         height: auto;
         z-index: 1;
-        top: 310px;
-        left: 70px;
+        top: 40px;
+        left: -20px;
+        transform: rotate(20deg);
+        transition: 0.5s;
+        margin-bottom: -50px;
+    }
+
+    #bee-image3 {
+        float: right;
+        position: relative;
+        width: 80px;
+        height: auto;
+        z-index: 1;
+        top: 40px;
+        right: 0px;
+        transform: rotate(180deg);
+        transition: 0.5s;
+        margin-bottom: -50px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    #bee-image {
+        position: relative;
+        width: 80px;
+        height: auto;
+        z-index: 1;
+        top: 40px;
+        left: -20px;
+        transform: rotate(20deg);
+        transition: 0.5s;
+        margin-bottom: -50px;
+    }
+
+    #bee-image3 {
+        float: right;
+        position: relative;
+        width: 80px;
+        height: auto;
+        z-index: 1;
+        top: 40px;
+        right: 0px;
+        transform: rotate(180deg);
+        transition: 0.5s;
+        margin-bottom: -50px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+    #bee-image {
+        position: relative;
+        width: 80px;
+        height: auto;
+        z-index: 1;
+        top: 40px;
+        left: 0px;
+        transform: rotate(20deg);
+        transition: 0.5s;
+        margin-bottom: -60px;
+    }
+
+    #bee-image3 {
+        float: right;
+        position: relative;
+        width: 80px;
+        height: auto;
+        z-index: 1;
+        top: 40px;
+        right: 0px;
+        transform: rotate(180deg);
+        transition: 0.5s;
+        margin-bottom: -50px;
     }
 }
 
 @media(min-width: 1200px) {
-    #bee-image2 {
+    #bee-image {
+        position: relative;
         width: 80px;
         height: auto;
         z-index: 1;
-        top: 410px;
-        left: 70px;
+        top: -10px;
+        left: -30px;
+        transform: rotate(20deg);
+        transition: 0.5s;
+        margin-bottom: -60px;
     }
+
+    #bee-image2 {
+        position: relative;
+        width: 80px;
+        height: auto;
+        z-index: 1;
+        top: 0px;
+        left: -30px;
+        transition: 0.5s;
+    }
+
+    #main-container {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+}
+
+@media (min-width: 1200px) {
+    #bee-image2 {
+        display: block;
+    }
+    #bee-image3 {
+        display: none;
+    }
+}
+
+@media (max-width: 1200px) {
+    #bee-image2 {
+        display: none;
+    }
+    #bee-image3 {
+        display: block;
+    }
+}
+
+#display-map {
+    /*color: var(--text-warning-color); */
+    color: #ffc107;;
+    transition: color 0.3s;
+    text-decoration: underline;
+}
+
+#display-map:hover {
+    color: black; /* Change color to black on hover */
 }
 
 

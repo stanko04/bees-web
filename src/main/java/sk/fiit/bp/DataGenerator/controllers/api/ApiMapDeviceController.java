@@ -1,17 +1,20 @@
-package sk.fiit.bp.DataGenerator.controllers;
+package sk.fiit.bp.DataGenerator.controllers.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import sk.fiit.bp.DataGenerator.model.database.Device;
 import sk.fiit.bp.DataGenerator.model.mapDevice.*;
 import sk.fiit.bp.DataGenerator.model.mapDevice.wrappers.DevicesWrapper;
 import sk.fiit.bp.DataGenerator.model.mapDevice.wrappers.TenantsWrapper;
 import sk.fiit.bp.DataGenerator.model.mapDevice.wrappers.UsersWrapper;
+import sk.fiit.bp.DataGenerator.repository.DeviceRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,17 +22,19 @@ import java.util.List;
 
 @RestController
 @Component
-public class MapDeviceController {
+public class ApiMapDeviceController {
     final RestTemplate restTemplate = new RestTemplate();
-    final Logger logger = LoggerFactory.getLogger(MapDeviceController.class);
+    final Logger logger = LoggerFactory.getLogger(ApiMapDeviceController.class);
     final String urlAdress = "http://165.22.17.201/";
 
-//    @GetMapping("get-tenants")
+    @Autowired
+    DeviceRepository deviceRepository;
+
+    @GetMapping("get-map-devices")
     public void getAllDeviceAndDashboards() {
         try {
             String adminToken = adminLogin();
-            List<DeviceInfo> allDevices = new ArrayList<>();
-
+            List<Device> allDevices = new ArrayList<>();
             if(adminToken != null) {
                 List<Tenant> tenants = getAllTenants(adminToken);
                 if(tenants != null) {
@@ -38,15 +43,19 @@ public class MapDeviceController {
                         System.out.println(user); // TESTING
                         String userToken = getUserToken(adminToken, user);
                         System.out.println(userToken); // TESTING
-                        List<DeviceInfo> deviceInfos = getUserPublicDevices(userToken, user);
-                        if(deviceInfos != null && deviceInfos.size() > 0) {
-                            allDevices.addAll(deviceInfos);
+                        List<Device> devices = getUserPublicDevices(userToken, user);
+                        if(devices != null && devices.size() > 0) {
+                            allDevices.addAll(devices);
                         }
                     }
                 }
             }
-            for(DeviceInfo deviceInfo: allDevices) {
-                System.out.println(deviceInfo);
+            for(Device device: allDevices) {
+                System.out.println(device);
+            }
+            if(allDevices.size() > 0) {
+                deviceRepository.deleteAll();
+                deviceRepository.saveAll(allDevices);
             }
         } catch (Exception e) {
             logger.warn("Pri ziskavani monitorovanych ulov vznikla chyba: ", e);
@@ -64,7 +73,7 @@ public class MapDeviceController {
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
         // string pre username a password
-        String requestBody = "{\"username\": \"****\", \"password\": \"****\"}";
+        String requestBody = "{\"username\": \"adam4grik@gmail.com\", \"password\": \"rFhLZ6S8Pn7UFeL\"}";
 
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, httpHeaders);
 
@@ -192,8 +201,8 @@ public class MapDeviceController {
     /**
      Metóda pre získanie všetkých public devices, pre daného usera.
      */
-    public List<DeviceInfo> getUserPublicDevices(String userToken, User user) {
-        List<DeviceInfo> devices = new ArrayList<>();
+    public List<Device> getUserPublicDevices(String userToken, User user) {
+        List<Device> devices = new ArrayList<>();
         String url = urlAdress + "api/tenant/devices?pageSize=100&page=0";
 
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -214,13 +223,13 @@ public class MapDeviceController {
             DevicesWrapper userDevices = responseEntity.getBody();
             assert userDevices != null;
             if (userDevices.getData() != null && userDevices.getData().size() > 0) {
-                for (Device device : userDevices.getData()) {
-                    if (device.getLabel() != null && !device.getLabel().isEmpty() && device.getLabel().equals("public")) {
-                        DeviceInfo deviceInfo = getDeviceAttributes(userToken, device.getId().getId());
-                        if(deviceInfo != null) {
-                            deviceInfo.setName(device.getName());
-                            deviceInfo.setOwner(user.getFirstName() + " " + user.getLastName());
-                            devices.add(deviceInfo);
+                for (DeviceTemp deviceTemp : userDevices.getData()) {
+                    if (deviceTemp.getLabel() != null && !deviceTemp.getLabel().isEmpty() && deviceTemp.getLabel().equals("public")) {
+                        Device device = getDeviceAttributes(userToken, deviceTemp.getId().getId());
+                        if(device != null) {
+                            device.setName(deviceTemp.getName());
+                            device.setOwner(user.getFirstName() + " " + user.getLastName());
+                            devices.add(device);
                         }
                     }
                 }
@@ -231,7 +240,7 @@ public class MapDeviceController {
         }
     }
 
-    public DeviceInfo getDeviceAttributes(String userToken, String deviceId) {
+    public Device getDeviceAttributes(String userToken, String deviceId) {
         String url = urlAdress + "api/plugins/telemetry/DEVICE/" + deviceId + "/values/attributes";
 
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -282,11 +291,11 @@ public class MapDeviceController {
 
             if(hasLatitude && hasLongitude) {
                 if(hasDashboard) {
-                    return new DeviceInfo(
+                    return new Device(
                             (String) dashboardAttribute.getValue(), (Double) latitudeAttribute.getValue(),
                             (Double) longitudeAttribute.getValue());
                 } else {
-                    return new DeviceInfo((Double) latitudeAttribute.getValue(), (Double) longitudeAttribute.getValue());
+                    return new Device((Double) latitudeAttribute.getValue(), (Double) longitudeAttribute.getValue());
                 }
 
             }
