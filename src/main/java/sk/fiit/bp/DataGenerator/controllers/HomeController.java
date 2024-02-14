@@ -18,7 +18,7 @@ public class HomeController {
     @Autowired
     private DeviceRepository deviceRepository;
 
-    @GetMapping("/home-page")
+    @GetMapping("/")
     public String home(Model model) {
         String appName = "Toto je moja aplikacia";
         int number = 1234;
@@ -51,17 +51,16 @@ public class HomeController {
             }
         }
 
-//        GeoJsonFeature feature1 = GeoJsonFeature.createGeoJsonFeature("Včelí úľ č. 155", 17.58723, 48.37741, "embassy");
-//        features.add(feature1);
-//
-//        GeoJsonFeature feature2 = GeoJsonFeature.createGeoJsonFeature("Včelí úľ č. 188", 18.076376, 48.306141, "embassy");
-//        features.add(feature2);
-
         featureCollection.setFeatures(features);
 
         model.addAttribute("geoJsonData", featureCollection);
 
         return "home";
+    }
+
+    @GetMapping("/mapa")
+    public String getMap() {
+        return "map";
     }
 
 }
