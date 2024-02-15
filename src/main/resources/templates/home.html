@@ -18,42 +18,60 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
 </head>
 <body>
-<!--    <h1>Toto je moja aplikacia</h1>-->
-<!--    <p>Welcome to <span th:text="${appName}">Our App</span></p>-->
-<!--    <p>Number: <span id="calculate"></span></p>-->
-<!--    <p>Message: <span th:text="${string}"></span></p>-->
-
     <div class="container-fluid px-0">
 
         <nav class="navbar navbar-expand-lg navbar-light bg-warning shadow">
             <div class="container-fluid">
-                <a class="navbar-brand" id="navbar-logo" href="/">
-                    <span class="material-symbols-outlined me-1">hive</span>
-                    Včeličky - FIIT STU
-                </a>
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-                        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation"
-                        id="navbarToggler">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+<!--                <a class="navbar-brand" id="navbar-logo" href="/">-->
+<!--                    <span class="material-symbols-outlined me-0">hive</span>-->
+<!--                    BEES-->
+<!--                </a>-->
+<!--                <a class="navbar-brand me-4" href=""-->
+<!--                   style="font-size: 25px; font-family: 'Bebas Neue', sans-serif;  margin: 0; padding: 0; float: left">-->
+<!--                    @FIIT STU-->
+<!--                </a>-->
+<!--                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarContent"-->
+<!--                        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation"-->
+<!--                        id="navbarToggler">-->
+<!--                    <span class="navbar-toggler-icon"></span>-->
+<!--                </button>-->
+                <div class="col-auto">
+                    <a class="navbar-brand" id="navbar-logo" href="/">
+                        <span class="material-symbols-outlined me-0">hive</span>
+                        BEES
+                    </a>
+                </div>
+                <div class="col me-2">
+                    <a class="navbar-brand" href="https://www.fiit.stuba.sk/" target="_blank"
+                       style="font-size: 25px; font-family: 'Bebas Neue', sans-serif; text-decoration: underline">
+                        @FIIT STU
+                    </a>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation"
+                            id="navbarToggler">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
 
                 <div class="container px-3">
                     <div class="collapse navbar-collapse" id="navbarContent">
                         <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link me-lg-3" href="" style="font-size: 20px">Domov</a>
+                                <a class="nav-link me-lg-3" href="" style="font-size: 20px">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-lg-3" href="" style="font-size: 20px">Platforma</a>
+                                <a class="nav-link me-lg-3" href="" style="font-size: 20px">Platform</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-lg-3" href="/mapa" style="font-size: 20px">Mapa</a>
+                                <a class="nav-link me-lg-3" href="/mapa" style="font-size: 20px">List</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-lg-3" href="" style="font-size: 20px">O projekte</a>
+                                <a class="nav-link me-lg-3" href="" style="font-size: 20px">About project</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-lg-3" id="link" href="" style="font-size: 20px">Kontakt</a>
+                                <a class="nav-link me-lg-3" id="link" href="" style="font-size: 20px">Contact</a>
                             </li>
                         </ul>
                     </div>
@@ -68,17 +86,20 @@
                         <img src="/img/bee.png" id="bee-image" class="img-fluid" alt="Image">
                         <img src="/img/bee2.png" id="bee-image3" class="img-fluid" alt="Image">
                         <div class="my-5">
-                            <h2 class="text-center fw-bold mb-2">Včelárstvo</h2>
-                            <h2 class="text-warning text-center fw-bold mb-2">spojené s technológiou</h2>
-                            <p class="lead text-muted mb-4 text-center">
-                                Majte všetky dáta o Vašich včelách pod jednou strechou
+                            <h2 class="text-center fw-bold mb-2">Bee hives</h2>
+                            <h2 class="text-warning text-center fw-bold mb-2"> monitoring via IoT</h2>
+                            <p class="lead text-muted mb-2 text-center">
+                                „If the bee disappeared off the surface of the globe then man would only have four years of life left.
+                                No more bees, no more pollination, no more plants, no more animals, no more man.“
                             </p>
+                            <hr class="text-center divider my-2" style="width: 60px; margin: 0 auto;">
+                            <h5 class=" text-center fw-bold mb-4">Have data about your bee hives at one place</h5>
                             <div class="d-grid gap-3 d-sm-flex justify-content-center">
                                 <a class="btn btn-warning btn-large text-uppercase" href="">
-                                    Vstúpiť do platformy
+                                    Login to IoT platform
                                 </a>
                                 <a class="btn btn-outline-warning btn-large text-uppercase" href="">
-                                    O projekte
+                                    About project
                                 </a>
                             </div>
                         </div>
@@ -86,11 +107,11 @@
                     </div>
                     <div class="col-xl-6 col-xxl-6 justify-content-center">
 <!--                        <div id="map"></div>-->
-                        <h4 class="text-center fw-bold mb-2">Mapa monitorovaných úľov na Slovensku</h4>
+                        <h4 class="text-center fw-bold mb-2">Map of monitored bee hives</h4>
                         <div class="bg-light rounded-3 my-3" style="  justify-content: center; align-items: center; display: flex; height: 300px;">
                             <div id="map" style="width: 100%; height: 100%;"></div>
                         </div>
-                        <h5 class="text-center fw-bold mb-2"><a href="" id="display-map">Zobraziť mapu v plnej veľkosti</a></h5>
+                        <h5 class="text-center fw-bold mb-2"><a href="/mapa" id="display-map">Show list of monitored bee hives</a></h5>
                     </div>
                 </div>
             </div>
@@ -98,38 +119,40 @@
 
         <section class="page-section mb-5">
             <div class="container">
-                <h2 class="text-center mt-0">Služby aplikácie</h2>
+                <h2 class="text-center mt-0">We deliver</h2>
                 <hr class="divider my-4">
                 <div class="row">
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <i class="fas fa-4x fa-gem text-warning mb-4"></i>
-                            <h3 class="h4 mb-2">Inovatívne riešenia</h3>
-                            <p class="text-muted mb-0">Efektívne využitie najnovších technológií</p>
+                            <h3 class="h5 mb-2">Monitoring of your bee hives via our HW solution</h3>
+                            <p class="text-muted mb-0">We monitor bees' frequency, hive weight, temperatures,
+                                humidity and hive tipping over and transfer data utilizing Sigfox or other IoT technology to data center</p>
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <i class="fas fa-4x fa-laptop-code text-warning mb-4"></i>
-                            <h3 class="h4 mb-2">Efektívny prehľad dát</h3>
-                            <p class="text-muted mb-0">Vaše včely, jasne a prehľadne na jednom mieste</p>
+                            <h3 class="h5 mb-2">You can have good and peaceful sleep </h3>
+                            <p class="text-muted mb-0">We alert a beekeeper in case of emergency or when bees need his help.</p>
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <i class="fas fa-4x fa-globe text-warning mb-4"></i>
-                            <h3 class="h4 mb-2">Vždy aktuálne dáta</h3>
-                            <p class="text-muted mb-0">Vždy zobrazované najaktuálnejšie dáta o Vašich včelách</p>
+                            <h3 class="h5 mb-2">Always accurate data about bee hives in your hand</h3>
+                            <p class="text-muted mb-0">Your bees are kept an eye on. Anytime. Anywhere from your smartphone, in effective manner.</p>
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <i class="fas fa-4x fa-heart text-warning mb-4"></i>
-                            <h3 class="h4 mb-2">Pridaná hodnota</h3>
-                            <p class="text-muted mb-0">Spojenie technológií a ľudí, pre lepšiu budúcnosť včiel</p>
+                            <h3 class="h5 mb-2">Innovative ecological solution </h3>
+                            <p class="text-muted mb-0">Effective utilization of current IT technologies for ecological purpose.
+                                Connection of people with heart and IT technologies for better future of bees.</p>
                         </div>
                     </div>
                 </div>
@@ -184,29 +207,8 @@
 
     map.on('load', () => {
         map.addSource('places', {
-            // This GeoJSON contains features that include an "icon"
-            // property. The value of the "icon" property corresponds
-            // to an image in the Mapbox Streets style's sprite.
             'type': 'geojson',
             'data': geoJsonData
-            // 'data': {
-            //   'type': 'FeatureCollection',
-            //   'features': [
-            //     {
-            //       'type': 'Feature',
-            //       'properties': {
-            //         'description':
-            //                 '<strong>Včelí úľ č. 155</strong>' +
-            //                 '<p><a href="" target="_blank" title="Zobraziť dashboard">Zobraziť dashboard</a></p>',
-            //         'icon': 'embassy'
-            //       },
-            //       'geometry': {
-            //         'type': 'Point',
-            //         'coordinates': [17.58723, 48.37741]
-            //       }
-            //     }
-            //   ]
-            // }
         });
         // Add a layer showing the places.
         map.addLayer({
@@ -250,38 +252,6 @@
             map.getCanvas().style.cursor = '';
         });
     });
-
-    // document.addEventListener('DOMContentLoaded', function () {
-    //     const navbarToggler = document.getElementById('navbarToggler');
-    //     const beeImage = document.getElementById('bee-image');
-    //     const beeImage2 = document.getElementById('bee-image2');
-    //
-    //     navbarToggler.addEventListener('click', function () {
-    //         const expanded = this.getAttribute('aria-expanded') === 'true';
-    //         if (expanded) {
-    //             beeImage.style.top = '310px';
-    //             beeImage2.style.top = '310px';
-    //         } else {
-    //             beeImage.style.top = '100px';
-    //             beeImage2.style.top = '100px';
-    //         }
-    //     });
-    //
-    //     function handleWindowWidthChange() {
-    //         const windowWidth = window.innerWidth;
-    //         if(windowWidth > 1200) {
-    //             beeImage2.style.top = '410px';
-    //         }
-    //         if(windowWidth < 1200) {
-    //             beeImage2.style.top = '100px';
-    //         }
-    //     }
-    //
-    //     // Initial check
-    //     handleWindowWidthChange();
-    //
-    //     window.addEventListener('resize', handleWindowWidthChange);
-    // });
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

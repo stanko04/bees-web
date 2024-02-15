@@ -60,7 +60,7 @@ public class HomeController {
 
     @GetMapping("/mapa")
     public String getMap() {
-        return "map";
+        return "deviceList";
     }
 
 }
