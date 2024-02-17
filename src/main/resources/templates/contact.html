@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Včeličky.sk</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <div th:replace="fragments :: links"></div>
+    <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/teams/team-1/assets/css/team-1.css">
+</head>
+<body>
+<div class="container-fluid px-0">
+
+    <div th:replace="fragments :: navbar"></div>
+
+    <section class="bg-light" id="main-container-about-us">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
+                    <h2 class="mb-4 display-5 fw-bold text-center">Our Team</h2>
+                    <p class="text-secondary mb-3 text-center lead fs-5">Born from the academic collaboration.
+                        This project is a testament to the collective brilliance of our academic community at FIIT STU in Bratislava.</p>
+                    <hr class="w-50 mx-auto mb-5 border-dark-subtle">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container overflow-hidden">
+            <div class="row justify-content-center">
+
+                <div class="card mx-5 px-0 my-5" style="width: 18rem;">
+                    <img class="card-img-top" src="/img/template.svg" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">Ing. Tomáš Kováčik, Phd. </h5>
+                        <h6 class="card-title">Teacher (Supervisor)</h6>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">tokosk16@gmail.com</li>
+<!--                        <li class="list-group-item">Dapibus ac facilisis in</li>-->
+<!--                        <li class="list-group-item">Vestibulum at eros</li>-->
+                    </ul>
+                    <div class="card-body py-2">
+                        <a href="" class="card-link" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+<!--                        <a href="#" class="card-link">Another link</a>-->
+                    </div>
+                </div>
+
+                <div class="card mx-5 px-0 my-5" style="width: 18rem;">
+                    <img class="card-img-top" src="/img/grik.jpg" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">Adam Grík</h5>
+                        <h6 class="card-title">Student (developer)</h6>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">adam4grik@gmail.com</li>
+<!--                        <li class="list-group-item">Dapibus ac facilisis in</li>-->
+<!--                        <li class="list-group-item">Vestibulum at eros</li>-->
+                    </ul>
+                    <div class="card-body py-2">
+                        <a href="https://www.linkedin.com/in/adam-gr%C3%ADk-32b2692a6/" class="card-link" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+<!--                        <a href="#" class="card-link">Another link</a>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+
+    </main>
+
+    <div th:replace="fragments :: footer"></div>
+</div>
+
+<script th:inline="javascript">
+
+</script>
+
+</body>
+</html>

@@ -16,9 +16,9 @@ public class Device {
 
     private String name;
 
-    private double latitude;
+    private Double latitude;
 
-    private double longitude;
+    private Double longitude;
 
     private String dashboardLink;
 
@@ -37,4 +37,10 @@ public class Device {
     public Device() {
 
     }
+
+    public Device(String dashboardLink) {
+        this.dashboardLink = dashboardLink;
+    }
+
+
 }

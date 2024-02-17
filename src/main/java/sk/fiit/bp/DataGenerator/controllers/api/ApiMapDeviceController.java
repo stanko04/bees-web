@@ -40,9 +40,7 @@ public class ApiMapDeviceController {
                 if(tenants != null) {
                     for(Tenant tenant: tenants) {
                         User user = getTenantOwner(tenant, adminToken);
-                        System.out.println(user); // TESTING
                         String userToken = getUserToken(adminToken, user);
-                        System.out.println(userToken); // TESTING
                         List<Device> devices = getUserPublicDevices(userToken, user);
                         if(devices != null && devices.size() > 0) {
                             allDevices.addAll(devices);
@@ -50,15 +48,13 @@ public class ApiMapDeviceController {
                     }
                 }
             }
-            for(Device device: allDevices) {
-                System.out.println(device);
-            }
             if(allDevices.size() > 0) {
                 deviceRepository.deleteAll();
                 deviceRepository.saveAll(allDevices);
             }
+            logger.info("Získanie monitorvaných včelíčh úľov prebehlo úspešne.");
         } catch (Exception e) {
-            logger.warn("Pri ziskavani monitorovanych ulov vznikla chyba: ", e);
+            logger.warn("Pri získavaní monitorovaných včelích úľov vznikla chyba vznikla chyba: ", e);
         }
     }
 
@@ -297,7 +293,13 @@ public class ApiMapDeviceController {
                 } else {
                     return new Device((Double) latitudeAttribute.getValue(), (Double) longitudeAttribute.getValue());
                 }
-
+            } else {
+                if(hasDashboard) {
+                    return new Device(
+                            (String) dashboardAttribute.getValue());
+                } else {
+                    return new Device();
+                }
             }
 
         }

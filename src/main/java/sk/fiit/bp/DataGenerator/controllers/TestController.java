@@ -15,7 +15,7 @@ public class TestController {
 
 
     @GetMapping("get-devices")
-    public List<Device> readStudents(){
+    public List<Device> getAllDevices(){
         return deviceRepository.findAll();
     }
 

@@ -18,6 +18,20 @@ body {
     font-family: 'Bebas Neue', sans-serif;
 }
 
+#main-container-list {
+    padding-top: 50px;
+    padding-bottom: 70px;
+}
+
+#main-container-about-us {
+    padding-top: 30px;
+    padding-bottom: 0px;
+}
+
+#main-container {
+    padding-bottom: 50px;
+}
+
 @media (max-width: 360px) {
     #bee-image {
         position: relative;
@@ -180,6 +194,7 @@ body {
         padding-top: 50px;
         padding-bottom: 50px;
     }
+
 }
 
 @media (min-width: 1200px) {
@@ -210,5 +225,37 @@ body {
 #display-map:hover {
     color: black; /* Change color to black on hover */
 }
+
+.pagination .page-item .page-link {
+    color: #ffc107;
+    background-color: white;
+    border-color: darkgray;
+}
+.pagination .page-item.active .page-link {
+    color: white;
+    background-color: #ffc107;
+    border-color: darkgray;
+}
+
+.pagination-detail {
+    display: none;
+}
+
+.fixed-table-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#table {
+    border-collapse: collapse;
+}
+
+#table th, #table td {
+    border: none;
+}
+
+
+
 
 

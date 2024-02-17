@@ -18,11 +18,11 @@ public class GeoJsonFeature {
         GeoJsonProperties properties = new GeoJsonProperties();
         if(dashboard.equals("unknown")) {
             properties.setDescription("<strong>" + name + "</strong>" +
-                    "<p><strong>Včelár: </strong>" + owner + "<p>");
+                    "<p><strong>Owner (beekeeper): </strong>" + owner + "<p>");
         } else {
             properties.setDescription("<strong>" + name + "</strong>" +
-                    "<p><strong>Včelár: </strong>" + owner + "<p>" +
-                    "<p><a href=\"" + dashboard + "\" target=\"_blank\" title=\"Zobraziť dashboard\">Zobraziť dashboard</a></p>");
+                    "<p><strong>Owner (beekeeper): </strong>" + owner + "<p>" +
+                    "<p><a href=\"" + dashboard + "\" target=\"_blank\" title=\"Go to dashboard\">Display dashboard</a></p>");
         }
 
         properties.setIcon("embassy");
