@@ -24,11 +24,23 @@ public class Device {
 
     private String owner;
 
+    private String city;
+
+    private String accessToken;
+
+    public Device(String dashboardLink, double latitude, double longitude, String city) {
+        this.dashboardLink = dashboardLink;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.city = city;
+    }
+
     public Device(String dashboardLink, double latitude, double longitude) {
         this.dashboardLink = dashboardLink;
         this.latitude = latitude;
         this.longitude = longitude;
     }
+
     public Device(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import sk.fiit.bp.DataGenerator.model.database.Device;
 import sk.fiit.bp.DataGenerator.model.mapDevice.*;
+import sk.fiit.bp.DataGenerator.model.mapDevice.wrappers.AccessTokenWrapper;
 import sk.fiit.bp.DataGenerator.model.mapDevice.wrappers.DevicesWrapper;
 import sk.fiit.bp.DataGenerator.model.mapDevice.wrappers.TenantsWrapper;
 import sk.fiit.bp.DataGenerator.model.mapDevice.wrappers.UsersWrapper;
@@ -260,49 +261,83 @@ public class ApiMapDeviceController {
             boolean hasDashboard = false;
             boolean hasLatitude = false;
             boolean hasLongitude = false;
+            boolean hasCity = false;
             Attribute dashboardAttribute = new Attribute();
             Attribute latitudeAttribute = new Attribute();
             Attribute longitudeAttribute = new Attribute();
+            Attribute cityAttribute = new Attribute();
 
             if(attributes != null && attributes.size() > 0) {
                 for (Attribute attribute : attributes) {
                     if ("dashboard".equals(attribute.getKey()) && attribute.getValue() != null) {
                         hasDashboard = true;
                         dashboardAttribute.setValue(attribute.getValue());
-                    } else if ("latitude".equals(attribute.getKey()) && attribute.getValue() != null) {
+                    }
+                    if ("latitude".equals(attribute.getKey()) && attribute.getValue() != null) {
                         String latitude = attribute.getValue().toString();
                         if (latitude.matches("^-?\\d+(\\.\\d+)?$")) {
                             hasLatitude = true;
                             latitudeAttribute.setValue(attribute.getValue());
                         }
-                    } else if ("longitude".equals(attribute.getKey()) && attribute.getValue() != null) {
+                    }
+                    if ("longitude".equals(attribute.getKey()) && attribute.getValue() != null) {
                         String longitude = attribute.getValue().toString();
                         if (longitude.matches("^-?\\d+(\\.\\d+)?$")) {
                             hasLongitude = true;
                             longitudeAttribute.setValue(attribute.getValue());
                         }
                     }
+                    if("city".equals(attribute.getKey()) && attribute.getValue() != null) {
+                        hasCity = true;
+                        cityAttribute.setValue(attribute.getValue());
+                    }
                 }
             }
 
+            String deviceAccessToken = getDeviceAccessToken(userToken, deviceId);
+
+            Device device = new Device();
             if(hasLatitude && hasLongitude) {
-                if(hasDashboard) {
-                    return new Device(
-                            (String) dashboardAttribute.getValue(), (Double) latitudeAttribute.getValue(),
-                            (Double) longitudeAttribute.getValue());
-                } else {
-                    return new Device((Double) latitudeAttribute.getValue(), (Double) longitudeAttribute.getValue());
-                }
-            } else {
-                if(hasDashboard) {
-                    return new Device(
-                            (String) dashboardAttribute.getValue());
-                } else {
-                    return new Device();
-                }
+                device.setLatitude((Double) latitudeAttribute.getValue());
+                device.setLongitude((Double) longitudeAttribute.getValue());
             }
-
+            if(hasDashboard) {
+                device.setDashboardLink((String) dashboardAttribute.getValue());
+            }
+            if(hasCity) {
+                device.setCity((String) cityAttribute.getValue());
+            }
+            if(deviceAccessToken != null) {
+                device.setAccessToken(deviceAccessToken);
+            }
+            return device;
         }
         return null;
+    }
+
+    public String getDeviceAccessToken(String userToken, String deviceId) {
+        String url = "http://165.22.17.201:80/api/device/" + deviceId + "/credentials";
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.set("X-Authorization", "Bearer " + userToken);
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
+
+        ResponseEntity<AccessTokenWrapper> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                requestEntity,
+                AccessTokenWrapper.class
+        );
+
+        HttpStatus statusCode = responseEntity.getStatusCode();
+        if (statusCode == HttpStatus.OK) {
+            AccessTokenWrapper responseBody = responseEntity.getBody();
+            assert responseBody != null;
+            return responseBody.getCredentialsId();
+        } else {
+            return null;
+        }
     }
 }

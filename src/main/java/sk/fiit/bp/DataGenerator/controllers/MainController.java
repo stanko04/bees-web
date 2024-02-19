@@ -31,7 +31,7 @@ public class MainController {
 
         model.addAttribute("geoJsonData", featureCollection);
 
-        return "home";
+        return "index";
     }
 
     @GetMapping("/list")
@@ -57,6 +57,9 @@ public class MainController {
     public String getAboutUs() {
         return "contact";
     }
+
+    @GetMapping("about-project")
+    public String getAboutProject() { return "about-project"; }
 
     @GetMapping("/test")
     public String getTest() {
