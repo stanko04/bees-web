@@ -5,6 +5,8 @@
     <title>Včeličky.sk</title>
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <div th:replace="fragments :: links"></div>
+    <link rel="stylesheet" href="/css/lightbox.css">
+    <script src="/js/lightbox.js"></script>
 </head>
 <body>
 
@@ -17,8 +19,7 @@
                 <div class="col-lg-4 text-center">
                     <img src="/img/hive.png" class="bd-placeholder-img rounded-circle mb-2" width="160" height="160" alt="">
                     <h2 class="text-center">Project overview</h2>
-                    <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tempor dui nisl,
-                        id varius nisi convallis vel.</p>
+                    <p class="text-center">Growing successfully for years, a project that thrives on the academic soil.</p>
                     <p class="text-center"><a class="btn btn-outline-warning" href="#project-overview">View details »</a></p>
                 </div>
 
@@ -26,8 +27,7 @@
                     <img src="/img/signal.png" class="bd-placeholder-img rounded-circle mb-2" width="160" height="160" alt="">
 
                     <h2 class="text-center">Hardware</h2>
-                    <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tempor dui nisl,
-                        id varius nisi convallis vel.</p>
+                    <p class="text-center">Our Arduino IoT device leads with cutting-edge sensors for unmatched performance.</p>
                     <p class="text-center"> <a class="btn btn-outline-warning" href="#hardware">View details »</a></p>
                 </div>
 
@@ -35,8 +35,7 @@
                     <img src="/img/mobile2.png" class="bd-placeholder-img rounded-circle mb-2" width="160" height="160" alt="">
 
                     <h2 class="text-center">Software</h2>
-                    <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tempor dui nisl,
-                        id varius nisi convallis vel.</p>
+                    <p class="text-center">A powerful IoT platform ThingsBoard that efficiently visualizes and analyzes monitored data.</p>
                     <p class="text-center"><a class="btn btn-outline-warning" href="#software">View details »</a></p>
                 </div>
             </div>
@@ -50,56 +49,74 @@
             <div class="row" id="project-overview">
                 <div class="col-md-12 col-lg-7 col-xl-7">
                     <h2>Project overview</h2>
-                    <p style="text-align: justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Morbi tempor dui nisl, id varius nisi convallis vel.
-                        Suspendisse sit amet felis orci. Donec aliquet nisl ac sapien mattis,
-                        vitae sollicitudin libero porta. Curabitur ante ipsum, lacinia sed molestie vel,
-                        consequat eu felis. Suspendisse dapibus, eros sit amet porttitor imperdiet, nisi l
-                        orem mollis ligula, in mattis mi massa nec quam. Donec facilisis urna et nulla efficitur,
-                        quis finibus nunc condimentum. Duis cursus mi ut ex vulputate gravida. Ut placerat quam eu
-                        laoreet interdum. Nam id pellentesque mauris, a rutrum dolor. Etiam ut elit orci. Sed luctus
-                        nisi purus, in auctor urna scelerisque vel. Aliquam vel nunc sed lacus pretium posuere. </p>
+                    <p style="text-align: justify">This project has been evolving for several years at the Faculty of Informatics and
+                        Information Technologies (FIIT) of the Slovak University of Technology in Bratislava, under the guidance of
+                        Ing. Tomáš Kováčik, Ph.D., as part of both bachelor's and master's degree projects.
+                        Throughout its development, the project has transitioned through multiple phases, incorporating a variety
+                        of technologies and monitoring devices. In its early stages, devices such as Arduino, Meshlium, and
+                        Libelium were employed alongside various platforms for data visualization including Modulosys and
+                        Azure IoT Central. The monitoring IoT devices and visualization platforms communicated using the Sigfox network.
+                        Currently, the IoT platform ThingsBoard is utilized for displaying measured data,
+                        marking a significant evolution in the project's approach to data handling and visualization. </p>
 
-                       <p style="text-align: justify"> Mauris nibh risus, ornare ac augue vel, cursus tempor leo. Vestibulum consectetur magna quis est
-                        fringilla feugiat. Sed finibus eget mauris in dapibus. Phasellus at eleifend quam. Etiam varius, l
-                        acus vel tempor vehicula, nibh libero luctus arcu, vitae mattis augue metus eget ex. Cras a sagittis
-                        est. Maecenas luctus fermentum fringilla. Etiam dignissim arcu ac tortor iaculis mollis. Maecenas at
-                        vestibulum ex. In in commodo risus, vitae commodo enim. Pellentesque efficitur, justo quis rutrum cursus,
-                        metus ex tempor nunc, vel fringilla mi massa ac felis. Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit. Integer vestibulum ante et felis convallis, a euismod tellus tempus. Nulla ultrices, arcu a ullamcorper
-                        feugiat, ipsum ante aliquet metus, in porta lectus eros in nunc. In quis placerat ligula, sed vehicula nulla.</p>
+                       <p style="text-align: justify">
+                           The primary objective of the project's latest phase was to integrate an appropriate IoT
+                           platform for displaying and analyzing the collected data and to implement a presentation website.
+                           This website's main function is to showcase information and data on publicly monitored bee hives,
+                           providing invaluable insights into their conditions. Following this integration, the project encountered
+                           the challenge of replacing a missing monitoring device implementation. To address this, we initiated the
+                           generation of monitored variables of a simulated bee hive, aiming to replicate data from a real bee hive
+                           environment as closely as possible. This endeavor is essential for maintaining the project's integrity and
+                           its capability to deliver precise, real-time insights into bee hive conditions. Through the simulation of bee
+                           hive environments, we strive to enhance the understanding and analysis of the factors influencing bee populations,
+                           utilizing state-of-the-art IoT technology to pioneer novel approaches in beekeeping and environmental stewardship.</p>
                 </div>
+<!--                <div class="col-md-12 col-lg-5 col-xl-5">-->
+<!--                    <img class="img-fluid mx-auto" src="/img/diagram-system.png"  alt=""/>-->
+<!--                </div>-->
                 <div class="col-md-12 col-lg-5 col-xl-5">
-                    <img class="bd-placeholder-img bd-placeholder-img-lg img-fluid mx-auto" src="/img/template.svg"  alt=""/>
+                    <a href="/img/diagram-system.png" data-lightbox="gallery" data-title="Diagram of entire system">
+                        <img class="img-fluid mx-auto" src="/img/diagram-system.png" alt=""/>
+                    </a>
                 </div>
             </div>
 
             <hr class="divider my-4">
 
             <div class="row" id="hardware">
-                <div class="col-md-12 col-lg-7 col-xl-7 order-md-2">
+                <div class="col-md-12 col-lg-7 col-xl-7 order-2">
                     <h2>Hardware</h2>
-                    <p style="text-align: justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Morbi tempor dui nisl, id varius nisi convallis vel.
-                        Suspendisse sit amet felis orci. Donec aliquet nisl ac sapien mattis,
-                        vitae sollicitudin libero porta. Curabitur ante ipsum, lacinia sed molestie vel,
-                        consequat eu felis. Suspendisse dapibus, eros sit amet porttitor imperdiet, nisi l
-                        orem mollis ligula, in mattis mi massa nec quam. Donec facilisis urna et nulla efficitur,
-                        quis finibus nunc condimentum. Duis cursus mi ut ex vulputate gravida. Ut placerat quam eu
-                        laoreet interdum. Nam id pellentesque mauris, a rutrum dolor. Etiam ut elit orci. Sed luctus
-                        nisi purus, in auctor urna scelerisque vel. Aliquam vel nunc sed lacus pretium posuere. </p>
+                    <p style="text-align: justify">The measurement device itself has undergone several iterations and developments
+                        throughout the project. The most current and updated measurement device utilized within the project is an
+                        Arduino-based system, specifically the Arduino Mega 2560 model. This device, equipped with a variety of sensors,
+                        was meticulously designed to monitor several crucial parameters within the bee hive environment.
+                        <b>The monitored variables include external and internal temperatures and humidity levels, the hive's
+                            position (to detect overturning), weight, and the frequency within the hive.</b> Notably, the monitoring of external
+                        temperature and humidity was facilitated by the Meshlium weather station, utilizing the Waspmote Plug&Sense device,
+                        ensuring comprehensive environmental data collection. </p>
 
-                    <p style="text-align: justify"> Mauris nibh risus, ornare ac augue vel, cursus tempor leo. Vestibulum consectetur magna quis est
-                        fringilla feugiat. Sed finibus eget mauris in dapibus. Phasellus at eleifend quam. Etiam varius, l
-                        acus vel tempor vehicula, nibh libero luctus arcu, vitae mattis augue metus eget ex. Cras a sagittis
-                        est. Maecenas luctus fermentum fringilla. Etiam dignissim arcu ac tortor iaculis mollis. Maecenas at
-                        vestibulum ex. In in commodo risus, vitae commodo enim. Pellentesque efficitur, justo quis rutrum cursus,
-                        metus ex tempor nunc, vel fringilla mi massa ac felis. Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit. Integer vestibulum ante et felis convallis, a euismod tellus tempus. Nulla ultrices, arcu a ullamcorper
-                        feugiat, ipsum ante aliquet metus, in porta lectus eros in nunc. In quis placerat ligula, sed vehicula nulla.</p>
+                    <p style="text-align: justify"> These sensors included two DHT22 sensors for monitoring both external and internal temperatures,
+                        SEN-10245 weight sensors for measuring the hive's weight, a MAX9814 microphone for frequency measurement of the hive, an
+                        MPU-6050 accelerometer with a gyroscope for determining the hive's position and detecting if it has been overturned, an
+                        HX711 analog-to-digital converter for processing signals from the weight sensors, and a LPWAN Sigfox Node UART (WiSOL SFM10R1)
+                        communication module for transmitting the measured data via the Sigfox network. After gathering data from the sensors,
+                        the device encodes this information and creates a message for transmission. The messages are sent in hexadecimal
+                        form through the LPWAN Sigfox communication module to the Sigfox network, where they are captured by receiving base stations,
+                        also present in Slovakia, and forwarded to the Sigfox Cloud (Sigfox Backend). From there, data is relayed to third-party platforms
+                        which displayed and analyze monitored data.</p>
                 </div>
-                <div class="col-md-12 col-lg-5 col-xl-5 order-md-1">
-                    <img class="bd-placeholder-img bd-placeholder-img-lg img-fluid mx-auto" src="/img/template.svg"  alt=""/>
+                <div class="col-md-12 col-lg-5 col-xl-5">
+                    <a href="/img/monitorovacie-zariadenie.png" data-lightbox="gallery" data-title="Monitoring device Arduino Mega 2560 - with sensors">
+                        <img class="img-fluid mx-auto" src="/img/monitorovacie-zariadenie.png" alt=""/>
+                    </a>
+                    <div class="gallery-thumbnails">
+                        <a href="/img/meshlium.png" data-lightbox="gallery" data-title="Meteostation Meshlium">
+                            <img src="/img/meshlium.png" alt="" class="img-thumbnail img-fluid" style="height: 120px"/>
+                        </a>
+                        <a href="/img/waspm.png" data-lightbox="gallery" data-title="Waspmote Plug&Sense device">
+                            <img src="/img/waspm.png" alt="" class="img-thumbnail img-fluid" style="height: 120px"/>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -108,27 +125,38 @@
             <div class="row" id="software">
                 <div class="col-md-12 col-lg-7 col-xl-7">
                     <h2>Software</h2>
-                    <p style="text-align: justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Morbi tempor dui nisl, id varius nisi convallis vel.
-                        Suspendisse sit amet felis orci. Donec aliquet nisl ac sapien mattis,
-                        vitae sollicitudin libero porta. Curabitur ante ipsum, lacinia sed molestie vel,
-                        consequat eu felis. Suspendisse dapibus, eros sit amet porttitor imperdiet, nisi l
-                        orem mollis ligula, in mattis mi massa nec quam. Donec facilisis urna et nulla efficitur,
-                        quis finibus nunc condimentum. Duis cursus mi ut ex vulputate gravida. Ut placerat quam eu
-                        laoreet interdum. Nam id pellentesque mauris, a rutrum dolor. Etiam ut elit orci. Sed luctus
-                        nisi purus, in auctor urna scelerisque vel. Aliquam vel nunc sed lacus pretium posuere. </p>
+                    <p style="text-align: justify">Currently, our project utilizes ThingsBoard, an open-source IoT platform, for displaying,
+                        visualizing, and analyzing the collected data. This platform has been instrumental in creating a cohesive and comprehensive
+                        view of the data derived from our monitoring devices. ThingsBoard offers the capability to customize user dashboards,
+                        enabling us to tailor the main dashboard to display data according to our specific needs or those of our customers.
+                        This flexibility ensures that the application we develop on this IoT platform can be designed to present data in the
+                        most effective and clear manner possible, catering to our unique set of monitored variables. <b>These variables include
+                        internal temperature, external temperature, frequency, weight, hive orientation (overturn detection), internal humidity,
+                        external humidity, and battery status. </b> The ability to customize the dashboard allows for an optimized display of these
+                        critical parameters, enhancing the user experience by providing a clear and comprehensive overview of the bee hive's condition. </p>
 
-                    <p style="text-align: justify"> Mauris nibh risus, ornare ac augue vel, cursus tempor leo. Vestibulum consectetur magna quis est
-                        fringilla feugiat. Sed finibus eget mauris in dapibus. Phasellus at eleifend quam. Etiam varius, l
-                        acus vel tempor vehicula, nibh libero luctus arcu, vitae mattis augue metus eget ex. Cras a sagittis
-                        est. Maecenas luctus fermentum fringilla. Etiam dignissim arcu ac tortor iaculis mollis. Maecenas at
-                        vestibulum ex. In in commodo risus, vitae commodo enim. Pellentesque efficitur, justo quis rutrum cursus,
-                        metus ex tempor nunc, vel fringilla mi massa ac felis. Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit. Integer vestibulum ante et felis convallis, a euismod tellus tempus. Nulla ultrices, arcu a ullamcorper
-                        feugiat, ipsum ante aliquet metus, in porta lectus eros in nunc. In quis placerat ligula, sed vehicula nulla.</p>
+                    <p style="text-align: justify"> Key features of our software include the ability to add or remove monitoring devices, enabling users to
+                        independently manage the integration and disintegration of IoT devices within our application. Additionally, ThingsBoard supports
+                        public dashboard visibility. This means that if a user sets their dashboard to be publicly visible, anyone can view the dashboard through a
+                        designated URL address. These publicly available dashboards are linked with our presentation web application, and all public dashboards can be searched
+                        in a map or a list of monitored bee hives on our website.Furthermore, the platform facilitates the management and recording of interventions in the bee hive, s uch as honey collection,
+                        treatment, or feeding events. Users can add entries about these activities, including details like the amount of food consumed, the type of medication used,
+                        or the quantity of honey harvested. Beekeepers have complete control over setting up, customizing, and designing their dashboard to suit their preferences.
+                        With a vast array of widgets available for displaying all monitored variables and various options for analytical graphs, beekeepers can receive immediate
+                        notifications via email in case of unexpected conditions, ensuring timely and informed responses to any arising issues within the hive.</p>
                 </div>
                 <div class="col-md-12 col-lg-5 col-xl-5">
-                    <img class="bd-placeholder-img bd-placeholder-img-lg img-fluid mx-auto" src="/img/template.svg"  alt="testicek"/>
+                    <a href="/img/dashboard1.png" data-lightbox="gallery" data-title="Example of dashboard 1">
+                        <img class="img-fluid mx-auto" src="/img/dashboard1.png" alt=""/>
+                    </a>
+                    <div class="gallery-thumbnails">
+                        <a href="/img/dashboard2.png" data-lightbox="gallery" data-title="Example of dashboard 2">
+                            <img src="/img/dashboard2.png" alt="" class="img-thumbnail img-fluid" style="height: 100px; width: auto;"/>
+                        </a>
+                        <a href="/img/email.jpg" data-lightbox="gallery" data-title="Example of email notification">
+                            <img src="/img/email.jpg" alt="" class="img-thumbnail img-fluid" style="height: 100px; width: auto;"/>
+                        </a>
+                    </div>
                 </div>
             </div>
 

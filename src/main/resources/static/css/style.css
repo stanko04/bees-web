@@ -269,6 +269,22 @@ body {
     font-size: 10px;
 }
 
+.gallery-thumbnails {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center the thumbnails */
+    gap: 10px; /* Adjust the gap as needed */
+    margin-top: 20px; /* Space above the thumbnail row */
+}
+
+.img-thumbnail {
+    cursor: pointer;
+    width: 100px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+    /* Add border, margin, or other styles as desired */
+}
+
+
 
 
 
