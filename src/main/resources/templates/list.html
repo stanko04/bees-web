@@ -79,6 +79,7 @@
                     <th data-field="owner" data-filter-control="input">Owner (beekeeper)</th>
                     <th data-field="dashboardLink" data-filter-control="select">Dashboard</th>
                     <th data-field="city" data-filter-control="input">City</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody id="myTable">
@@ -87,13 +88,20 @@
                     <td th:text="${device.owner}"></td>
                     <td>
                         <span th:if="${device.dashboardLink != null}">
-                                <a th:href="${device.dashboardLink}" target="_blank" class="btn btn-outline-warning btn-sm">Go to Dashboard</a>
+                                <a th:href="${device.dashboardLink}" target="_blank" class="btn btn-outline-warning btn-sm" style="min-width: 120px;">Go to Dashboard</a>
                             </span>
                         <span th:if="${device.dashboardLink == null}">Dashboard is not public</span>
                     </td>
                     <td>
                         <span th:if="${device.city != null}"><span th:text="${device.city}"></span></span>
                         <span th:if="${device.city == null}">City is not public</span>
+                    </td>
+                    <td>
+                       <span th:if="${device.longitude != null && device.latitude != null}">
+                           <a href="#" class="btn btn-warning btn-sm" style="min-width: 120px;"
+                              th:data-latitude="${device.latitude}" th:data-longitude="${device.longitude}"
+                              th:data-description="${device.description}" onclick="scrollToMap(this)">Show on map</a>
+                       </span>
                     </td>
                 </tr>
                 </tbody>
@@ -113,8 +121,32 @@
     let geoJsonData = /*[[${geoJsonData}]]*/ '{}';
     /*]]>*/
 
-    getGeoJsonData(geoJsonData);
+    let map =  getGeoJsonData(geoJsonData);
 
+    function scrollToMap(element) {
+        var latitude = parseFloat(element.getAttribute('data-latitude'));
+        var longitude = parseFloat(element.getAttribute('data-longitude'));
+        var description = element.getAttribute('data-description');
+
+        var mapElement = document.getElementById("map");
+        if (mapElement) {
+            mapElement.scrollIntoView({behavior: "smooth", block: "start"});
+
+            map.flyTo({
+                center: [longitude, latitude],
+                essential: true,
+                zoom: 10
+            });
+
+            map.once('moveend', () => {
+                new mapboxgl.Popup()
+                    .setLngLat([longitude, latitude])
+                    .setHTML(description)
+                    .addTo(map);
+            });
+
+        }
+    }
 
 </script>
 

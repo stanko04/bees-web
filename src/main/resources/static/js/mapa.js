@@ -48,4 +48,6 @@ function getGeoJsonData(geoJsonData) {
             map.getCanvas().style.cursor = '';
         });
     });
+
+    return map;
 }

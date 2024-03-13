@@ -24,7 +24,8 @@ public class MainController {
         GeoJsonFeatureCollection featureCollection = new GeoJsonFeatureCollection();
         featureCollection.setType("FeatureCollection");
 
-        List<GeoJsonFeature> features = getGeoJsonFeatures();
+        List<Device> devices = deviceRepository.findAll();
+        List<GeoJsonFeature> features = getGeoJsonFeatures(devices);
 
 
         featureCollection.setFeatures(features);
@@ -40,12 +41,11 @@ public class MainController {
         GeoJsonFeatureCollection featureCollection = new GeoJsonFeatureCollection();
         featureCollection.setType("FeatureCollection");
 
-        List<GeoJsonFeature> features = getGeoJsonFeatures();
+        List<Device> devices = deviceRepository.findAll();
 
+        List<GeoJsonFeature> features = getGeoJsonFeatures(devices);
 
         featureCollection.setFeatures(features);
-
-        List<Device> devices = deviceRepository.findAll();
 
         model.addAttribute("devices", devices);
         model.addAttribute("geoJsonData", featureCollection);
@@ -66,9 +66,8 @@ public class MainController {
         return "test";
     }
 
-    public List<GeoJsonFeature> getGeoJsonFeatures() {
+    public List<GeoJsonFeature> getGeoJsonFeatures(List<Device> devices) {
         List<GeoJsonFeature> features = new ArrayList<>();
-        List<Device> devices = deviceRepository.findAll();
 
         if(devices.size() > 0) {
             for(Device device: devices) {
@@ -78,10 +77,12 @@ public class MainController {
                         feature = GeoJsonFeature.createGeoJsonFeature(
                                 device.getName(), device.getLongitude(), device.getLatitude(),
                                 device.getOwner(), device.getDashboardLink());
+                        device.setDescription(feature.getProperties().getDescription());
                     } else {
                         feature = GeoJsonFeature.createGeoJsonFeature(
                                 device.getName(), device.getLongitude(), device.getLatitude(),
                                 device.getOwner(), "unknown");
+                        device.setDescription(feature.getProperties().getDescription());
                     }
                     features.add(feature);
                 }

@@ -2,10 +2,7 @@ package sk.fiit.bp.DataGenerator.model.database;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -27,6 +24,9 @@ public class Device {
     private String city;
 
     private String accessToken;
+
+    @Transient
+    private String description;
 
     public Device(String dashboardLink, double latitude, double longitude, String city) {
         this.dashboardLink = dashboardLink;
