@@ -28,9 +28,8 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
-
 ### VS Code ###
 .vscode/
 
-### Secret application properties###
-/application-secret.properties
+### Secret application properties#
+src/main/resources/application-secret.properties
