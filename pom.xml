@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>sk.fiit.bp</groupId>
-	<artifactId>DataGenerator</artifactId>
+	<artifactId>BeesWeb</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>DataGenerator</name>
 	<description>Data Generator for Bachelor Thesis. </description>
