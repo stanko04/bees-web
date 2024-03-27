@@ -12,7 +12,7 @@
 	<artifactId>BeesWeb</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>DataGenerator</name>
-	<description>Data Generator for Bachelor Thesis. </description>
+	<description>Web application for Bachelor Thesis. </description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

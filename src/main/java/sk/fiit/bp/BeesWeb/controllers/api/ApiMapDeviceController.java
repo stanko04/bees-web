@@ -29,13 +29,15 @@ import java.util.List;
 @Slf4j
 public class ApiMapDeviceController {
     final RestTemplate restTemplate = new RestTemplate();
-    final String urlAdress = "http://165.22.17.201/";
 
     @Value("${thingsboard.admin.username}")
     private String adminUsername;
 
     @Value("${thingsboard.admin.password}")
     private String adminPassword;
+
+    @Value("${thingsboard.ip_address}")
+    private String urlAddress;
 
 
     @Autowired
@@ -85,7 +87,7 @@ public class ApiMapDeviceController {
      */
     public ResponseEntity<String> adminLogin() throws LoginException {
         try {
-            String url = urlAdress + "api/auth/login";
+            String url = urlAddress + "api/auth/login";
 
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -125,7 +127,7 @@ public class ApiMapDeviceController {
      */
     public List<Tenant> getAllTenants(String adminToken) throws LoginException {
         try{
-            String url = urlAdress + "api/tenants?pageSize=100&page=0";
+            String url = urlAddress + "api/tenants?pageSize=100&page=0";
 
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -164,7 +166,7 @@ public class ApiMapDeviceController {
      */
     public User getTenantOwner(Tenant tenant, String adminToken) throws Exception {
         try {
-            String url = urlAdress + "api/tenant/" + tenant.getId().getId() + "/users?pageSize=100&page=0";
+            String url = urlAddress + "api/tenant/" + tenant.getId().getId() + "/users?pageSize=100&page=0";
 
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -209,7 +211,7 @@ public class ApiMapDeviceController {
      * Aby sme vedeli získať jeho devices.
      */
     public String getUserToken(String adminToken, User user) throws LoginException {
-        try {String url = urlAdress + "api/user/"+ user.getId().getId() + "/token";
+        try {String url = urlAddress + "api/user/"+ user.getId().getId() + "/token";
 
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -246,7 +248,7 @@ public class ApiMapDeviceController {
     public List<Device> getUserPublicDevices(String userToken, User user) throws LoginException {
         try {
             List<Device> devices = new ArrayList<>();
-            String url = urlAdress + "api/tenant/devices?pageSize=100&page=0";
+            String url = urlAddress + "api/tenant/devices?pageSize=100&page=0";
 
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -291,7 +293,7 @@ public class ApiMapDeviceController {
 
     public Device getDeviceAttributes(String userToken, String deviceId) throws LoginException {
         try {
-            String url = urlAdress + "api/plugins/telemetry/DEVICE/" + deviceId + "/values/attributes";
+            String url = urlAddress + "api/plugins/telemetry/DEVICE/" + deviceId + "/values/attributes";
 
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -377,7 +379,7 @@ public class ApiMapDeviceController {
 
     public String getDeviceAccessToken(String userToken, String deviceId) throws LoginException {
         try {
-            String url = "http://165.22.17.201:80/api/device/" + deviceId + "/credentials";
+            String url = urlAddress + "/api/device/" + deviceId + "/credentials";
 
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setContentType(MediaType.APPLICATION_JSON);
